@@ -1,31 +1,68 @@
-# Supply Chain Prescriptive Analytics: Optimization Models
+# 🏥 Physician Scheduling Optimization
 
-## 📌 Project Overview
-This repository contains a prescriptive analytics project focused on supply chain optimization. The project utilizes mathematical modeling and linear/integer programming to make optimal, data-driven decisions regarding [insert main topic, e.g., facility location, production planning, or network design].
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Gurobi](https://img.shields.io/badge/Optimizer-Gurobi-orange)
+![Status](https://img.shields.io/badge/Project-Completed-brightgreen)
+![Type](https://img.shields.io/badge/Type-Prescriptive%20Analytics-purple)
 
-## 📁 Repository Structure
-* **`Project _prescriptive.ipynb`**: The Jupyter Notebook containing the data preparation, optimization models, constraint definitions, and solver implementations.
-* **`Project_Outline_2526.pdf`**: The project brief detailing the business problem and mathematical formulations.
-* *(Note: Any raw data files used are omitted from this public repository for academic integrity.)*
-
-## 🛠️ Skills & Technologies
-* **Language:** Python
-* **Key Libraries:** Pandas, NumPy, [Insert Solver here, e.g., PuLP, Gurobi, SciPy, or Pyomo]
-* **Techniques:** Linear Programming (LP), Mixed-Integer Linear Programming (MILP), Supply Chain Network Optimization, Sensitivity Analysis.
+## 📌 Overview
+This project develops an optimized physician scheduling system using **Gurobi (MIP)** and **Python**.  
+The objective is to **minimize the number of physicians** while ensuring demand coverage and complying with realistic labor constraints.
 
 ---
 
-## 📊 Case Study Details
-
-### [Insert Project Title, e.g., Global Distribution Network Optimization]
-* **Objective:** [e.g., Minimize total supply chain costs while adhering to strict capacity and demand fulfillment constraints.]
-* **Problem Context:** [Briefly describe the scenario, e.g., A manufacturing company needs to decide which regional distribution centers to open to serve customer demand at the lowest cost.]
-* **Mathematical Model:**
-  * **Objective Function:** [e.g., Minimize transportation costs + fixed facility costs]
-  * **Key Constraints:** [e.g., Node balance, warehouse capacity limits, binary open/close variables]
-* **Key Insights & Recommendations:** * *(Add your final results here. E.g., "The optimal solution recommended opening 3 out of 5 proposed warehouses, successfully meeting 100% of demand while reducing overall logistics costs by X% compared to the baseline.")*
+## ⚙️ Key Features
+- 3-shift system: **Early (E), Late (L), Night (N)**  
+- Weekly cyclic schedule  
+- Real-world constraints:
+  - Max 40 hours/week  
+  - 10-hour rest between shifts  
+  - 2 consecutive days off  
+  - Limited shift-type combinations  
+  - Max 3 consecutive night shifts  
 
 ---
 
-## 🚀 How to View the Results
-To view the optimization models and final business recommendations, simply open the `Project _prescriptive.ipynb` file directly in GitHub. The notebook displays all model formulations, solver outputs, and final optimal variable values.
+## 🧠 Approach
+
+### 🔹 Deterministic Model (Q2)
+- Uses **mean demand + emergency buffer**
+- Output: **28 physicians**
+
+### 🔹 Simulation Analysis (Q3)
+- Tested across 14 demand scenarios  
+- Measured:
+  - Undercoverage (physician-hours)
+  - Utilization per shift
+
+### 🔹 Stochastic Model (Q4)
+- Accounts for demand uncertainty  
+- Constraint:
+  > Expected undercoverage ≤ 1 physician-hour per shift  
+- Output: **29 physicians** (more robust schedule)
+
+---
+
+## 📊 Key Insights
+- Deterministic solutions are cost-efficient but less robust  
+- Stochastic optimization improves reliability with minimal cost increase  
+- Night shifts show **low utilization**, indicating overstaffing due to constraints and safety buffers  
+
+---
+
+## 🛠️ Tech Stack
+- Python (Pandas, NumPy, Matplotlib)  
+- Gurobi Optimizer  
+
+---
+
+## 📁 Files
+- `Prescriptive Analytics Final Project.ipynb` → Full implementation  
+- `Project_Data.csv` → Demand data (14 weeks)  
+
+---
+
+## 🚀 Run Locally
+```bash
+pip install pandas numpy matplotlib gurobipy
+jupyter notebook
